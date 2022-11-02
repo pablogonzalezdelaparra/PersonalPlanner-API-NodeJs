@@ -1,0 +1,22 @@
+{
+  "name": "compass-week8-project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pablogonzalezdelaparra/compass-week8-project.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pablogonzalezdelaparra/compass-week8-project/issues"
+  },
+  "homepage": "https://github.com/pablogonzalezdelaparra/compass-week8-project#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
