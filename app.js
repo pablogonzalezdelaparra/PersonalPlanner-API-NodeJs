@@ -6,6 +6,7 @@ const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
 const AppError = require('./utils/appError');
 const userRouter = require('./routes/userRoutes');
+const eventRouter = require('./routes/eventRoutes');
 const globalErrorHandler = require('./controllers/errorController');
 
 const app = express();

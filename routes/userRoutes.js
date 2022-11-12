@@ -8,7 +8,6 @@ router.get('/', userController.getAllUsers)
 router.post('/signUp', authController.signup);
 router.post('/signIn', authController.signin);
 
-// Generic routes (Admin)
 router
   .route('/:id')
   .get(userController.getUser)
