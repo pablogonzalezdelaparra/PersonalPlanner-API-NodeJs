@@ -3,18 +3,19 @@ const eventController = require('./../controllers/eventController');
 
 const router = express.Router();
 
-router.get('/', eventController.getAllEvents)
+router
+  .route('/')
+  .get(eventController.getAllEvents)
+  .post(eventController.createEvent)
 
-// Generic routes (Admin)
 router
   .route('/:id')
   .get(eventController.getEvent)
-  .post(eventController.createEvent)
   .delete(eventController.deleteEvent);
 
-router
+/* router
   .route('/:weekday')
   .get(eventController.getEvent)
-  .delete(eventController.deleteEvent);
+  .delete(eventController.deleteEvent); */
 
 module.exports = router;
