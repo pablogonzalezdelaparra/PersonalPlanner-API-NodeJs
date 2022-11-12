@@ -4,9 +4,25 @@ const mongoose = require('mongoose');
 const validator = require('validator');
 
 const userSchema = new mongoose.Schema({
-  name: {
+  firstName: {
     type: String,
-    required: [true, 'Please tell us your name!']
+    required: [true, 'Please tell us your first name!']
+  },
+  lastName: {
+    type: String,
+    required: [true, 'Please tell us your last name!']
+  },
+  birthDate: {
+    type: Date,
+    required: [true, 'Please tell us your birth date!']
+  },
+  city: {
+    type: String,
+    required: [true, 'Please tell us your city!']
+  },
+  country: {
+    type: String,
+    required: [true, 'Please tell us your country!']
   },
   email: {
     type: String,
@@ -21,7 +37,7 @@ const userSchema = new mongoose.Schema({
     minlength: 8,
     select: false
   },
-  passwordConfirm: {
+  confirmPassword: {
     type: String,
     required: [true, 'Please confirm your password'],
     validate: {
@@ -31,11 +47,6 @@ const userSchema = new mongoose.Schema({
       },
       message: 'Passwords are not the same!'
     }
-  },
-  role: {
-    type: String,
-    enum: ['user', 'admin'],
-    default: 'user'
   },
   passwordChangedAt: Date,
   passwordResetToken: String,
