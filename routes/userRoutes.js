@@ -4,14 +4,9 @@ const authController = require('./../controllers/authController');
 
 const router = express.Router();
 
+router.get('/', userController.getAllUsers)
 router.post('/signUp', authController.signup);
 router.post('/signIn', authController.signin);
-
-// Generic routes
-router
-  .route('/')
-  .get(userController.getAllUsers)
-  .post(userController.createUser);
 
 router
   .route('/:id')
@@ -24,9 +19,7 @@ router.use(authController.protect);
 
 router.patch('/updateMyPassword', authController.updatePassword);
 router.get('/me', userController.getMe, userController.getUser);
-router.patch('/updateMe', userController.updateMe);
-router.delete('/deleteMe', userController.deleteMe);
-
-
+//router.patch('/updateMe', userController.updateMe);
+//router.delete('/deleteMe', userController.deleteMe);
 
 module.exports = router;
