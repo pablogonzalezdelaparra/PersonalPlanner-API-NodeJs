@@ -13,9 +13,9 @@ router
   .get(eventController.getEvent)
   .delete(eventController.deleteEvent);
 
-/* router
-  .route('/:weekday')
-  .get(eventController.getEvent)
-  .delete(eventController.deleteEvent); */
+//router
+  //.route('/:weekday')
+  //.get(eventController.getEventWeekDay)
+  //.delete(eventController.deleteEvent);
 
 module.exports = router;
