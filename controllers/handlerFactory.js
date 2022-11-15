@@ -1,6 +1,7 @@
 const catchAsync = require('./../utils/catchAsync');
 const AppError = require('./../utils/appError');
 const APIFeatures = require('./../utils/apiFeatures');
+const { isObjectIdOrHexString } = require('mongoose');
 
 exports.deleteOne = Model =>
   catchAsync(async (req, res, next) => {
@@ -85,6 +86,53 @@ exports.getAll = Model =>
       results: doc.length,
       data: {
         data: doc
+      }
+    });
+  });
+
+exports.getOneByParam = (Model, popOptions) =>
+  catchAsync(async (req, res, next) => {
+    if (isObjectIdOrHexString(req.params.param)){
+      // If param is an ID
+      query = Model.findById(req.params.param);
+    } else {
+      // If param is a weekday
+      query = Model.find({description: req.params.param});
+    }
+    const doc = await query;
+  
+    if (!doc) {
+      return next(new AppError('No document found with that ID', 404));
+    }
+
+    res.status(200).json({
+      status: 'success',
+      data: {
+        data: doc
+      }
+    });
+  });
+
+exports.deleteOneByParam = (Model, popOptions) =>
+  catchAsync(async (req, res, next) => {
+    let doc = null;
+    if (isObjectIdOrHexString(req.params.param)){
+      // If param is an ID
+      doc = await Model.findByIdAndDelete(req.params.param);
+    } else {
+      // If param is a weekday
+      query = Model.find({description: req.params.param});
+      doc = await query;
+    }
+
+    if (!doc) {
+      return next(new AppError('No document found with that ID', 404));
+    }
+
+    res.status(204).json({
+      status: 'success',
+      data: {
+        data: null
       }
     });
   });

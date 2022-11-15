@@ -9,13 +9,8 @@ router
   .post(eventController.createEvent)
 
 router
-  .route('/:id')
-  .get(eventController.getEvent)
-  .delete(eventController.deleteEvent);
-
-//router
-  //.route('/:weekday')
-  //.get(eventController.getEventWeekDay)
-  //.delete(eventController.deleteEvent);
+  .route('/:param')
+  .get(eventController.getEventByParam)
+  .delete(eventController.deleteEventByParam);
 
 module.exports = router;
