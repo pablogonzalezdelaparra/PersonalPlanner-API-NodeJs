@@ -3,6 +3,16 @@ const AppError = require('./../utils/appError');
 const APIFeatures = require('./../utils/apiFeatures');
 const { isObjectIdOrHexString } = require('mongoose');
 
+const WeekDays = {
+  monday: 2,
+  tuesday: 3,
+  wednesday: 4,
+  thursday: 5,
+  friday: 6,
+  saturday: 7,
+  sunday: 1,
+}
+
 exports.deleteOne = Model =>
   catchAsync(async (req, res, next) => {
     const doc = await Model.findByIdAndDelete(req.params.id);
@@ -90,19 +100,35 @@ exports.getAll = Model =>
     });
   });
 
-exports.getOneByParam = (Model, popOptions) =>
+exports.getOneByParam = (Model) =>
   catchAsync(async (req, res, next) => {
     if (isObjectIdOrHexString(req.params.param)){
       // If param is an ID
       query = Model.findById(req.params.param);
     } else {
+      var day = WeekDays[req.params.param];
       // If param is a weekday
-      query = Model.find({description: req.params.param});
+      query = Model.aggregate([{
+        $addFields: {
+            DayOfWeek: {
+                $dayOfWeek: {
+                    date: "$dateTime"
+                }
+            }
+        }
+    }, {
+        $match: {
+            DayOfWeek: {
+                $eq: day
+            }
+        }
+    },
+    { $unset: "DayOfWeek" }])
     }
     const doc = await query;
   
     if (!doc) {
-      return next(new AppError('No document found with that ID', 404));
+      return next(new AppError('No document found with that parameter', 404));
     }
 
     res.status(200).json({
@@ -113,26 +139,41 @@ exports.getOneByParam = (Model, popOptions) =>
     });
   });
 
-exports.deleteOneByParam = (Model, popOptions) =>
+  exports.deleteOneByParam = (Model) =>
   catchAsync(async (req, res, next) => {
-    let doc = null;
     if (isObjectIdOrHexString(req.params.param)){
       // If param is an ID
-      doc = await Model.findByIdAndDelete(req.params.param);
+      query = Model.findByIdAndDelete(req.params.param);
     } else {
+      var day = WeekDays[req.params.param];
       // If param is a weekday
-      query = Model.find({description: req.params.param});
-      doc = await query;
+      query = Model.getCollection("Collection").aggregate([{
+        $addFields: {
+            DayOfWeek: {
+                $dayOfWeek: {
+                    date: "$dateTime"
+                }
+            }
+        }
+    }, {
+        $match: {
+            DayOfWeek: {
+                $eq: day
+            }
+        }
+    },
+    { $unset: "DayOfWeek" }])
     }
-
+    const doc = await query;
+  
     if (!doc) {
-      return next(new AppError('No document found with that ID', 404));
+      return next(new AppError('No document found with that parameter', 404));
     }
 
-    res.status(204).json({
+    res.status(200).json({
       status: 'success',
       data: {
-        data: null
+        data: doc
       }
     });
   });
