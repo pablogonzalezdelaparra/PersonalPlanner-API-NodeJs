@@ -102,31 +102,17 @@ exports.getAll = Model =>
 
 exports.getOneByParam = (Model) =>
   catchAsync(async (req, res, next) => {
-    if (isObjectIdOrHexString(req.params.param)){
+    if (isObjectIdOrHexString(req.params.param)) {
       // If param is an ID
       query = Model.findById(req.params.param);
     } else {
       var day = WeekDays[req.params.param];
       // If param is a weekday
-      query = Model.aggregate([{
-        $addFields: {
-            DayOfWeek: {
-                $dayOfWeek: {
-                    date: "$dateTime"
-                }
-            }
-        }
-    }, {
-        $match: {
-            DayOfWeek: {
-                $eq: day
-            }
-        }
-    },
-    { $unset: "DayOfWeek" }])
+      query = Model.find({ dayOfWeek: day })
+
     }
     const doc = await query;
-  
+
     if (!doc) {
       return next(new AppError('No document found with that parameter', 404));
     }
@@ -139,33 +125,19 @@ exports.getOneByParam = (Model) =>
     });
   });
 
-  exports.deleteOneByParam = (Model) =>
+exports.deleteOneByParam = (Model) =>
   catchAsync(async (req, res, next) => {
-    if (isObjectIdOrHexString(req.params.param)){
+    if (isObjectIdOrHexString(req.params.param)) {
       // If param is an ID
       query = Model.findByIdAndDelete(req.params.param);
     } else {
       var day = WeekDays[req.params.param];
       // If param is a weekday
-      query = Model.getCollection("Collection").aggregate([{
-        $addFields: {
-            DayOfWeek: {
-                $dayOfWeek: {
-                    date: "$dateTime"
-                }
-            }
-        }
-    }, {
-        $match: {
-            DayOfWeek: {
-                $eq: day
-            }
-        }
-    },
-    { $unset: "DayOfWeek" }])
+      query = Model.deleteMany({ dayOfWeek: day })
+
     }
     const doc = await query;
-  
+
     if (!doc) {
       return next(new AppError('No document found with that parameter', 404));
     }

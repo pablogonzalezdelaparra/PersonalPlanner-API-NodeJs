@@ -14,6 +14,21 @@ const eventSchema = new mongoose.Schema({
     type: Date,
     default: Date.now()
   },
+  dayOfWeek: Number,
+},
+{
+  toJSON: { virtuals: true },
+  toObject: { virtuals: true }
+});
+
+eventSchema.pre('save', function(next) {
+  this.dayOfWeek = this.dateTime.getDay()
+  next();
+});
+
+eventSchema.pre(/^find/, function(next) {
+  this.select('-dayOfWeek');
+  next();
 });
 
 const Event = mongoose.model('Event', eventSchema);
