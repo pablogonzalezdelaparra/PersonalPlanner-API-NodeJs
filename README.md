@@ -79,6 +79,8 @@ http://localhost:3000/api/v1/events/6378030befac8b0188914436
 }
 
 ## Sign In (User)
+**Note:** For Sign In purposes, all users passwords are `password123`
+
 ```
 http://localhost:3000/api/v1/users/signin
 ```
