@@ -7,6 +7,8 @@
 * This planner will help the client to organize his week and his tasks and at what times they happen.
 
 # Run locally
+**Note:** The database used in this repository is stored in MongoDB Atlas (Cloud). It accepts any IP connection.
+
 In order to run the repository locally, follow these next steps:
 1. Download the repository locally into your machine
 1. Open the folder named *compass-week8-project*
