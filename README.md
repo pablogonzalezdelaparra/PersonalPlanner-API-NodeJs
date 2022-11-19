@@ -1,6 +1,6 @@
 # Challenge # 02
 ## Repository description
-* Author: Pablo González de la Parra\
+* Author: Pablo González de la Parra
 * Date: 1/11/2022
 
 ### Description of this repository
