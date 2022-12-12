@@ -22,9 +22,12 @@ const eventSchema = new mongoose.Schema({
   },
   createdAt: {
     type: Date,
-    default: Date.now()
+    default: Date.now(),
   },
-  dayOfWeek: String,
+  dayOfWeek: {
+    type: String,
+    required: [true, 'Please tell us the weekday!']
+  }
 },
 {
   toJSON: { virtuals: true },
@@ -32,8 +35,8 @@ const eventSchema = new mongoose.Schema({
 });
 
 eventSchema.pre('save', function(next) {
-  numDay = this.dateTime.getDay()
-  this.dayOfWeek = WeekDays[numDay]
+  //numDay = this.dateTime.getDay()
+  //this.dayOfWeek = WeekDays[numDay]
   next();
 });
 
@@ -41,6 +44,7 @@ eventSchema.pre(/^find/, function(next) {
   this.select('-dateTime');
   next();
 });
+
 
 const Event = mongoose.model('Event', eventSchema);
 
