@@ -1,6 +1,17 @@
 const mongoose = require('mongoose');
 // const validator = require('validator');
 
+
+const WeekDays = {
+  monday: 1,
+  tuesday: 2,
+  wednesday: 3,
+  thursday: 4,
+  friday: 5,
+  saturday: 6,
+  sunday: 0,
+}
+
 const eventSchema = new mongoose.Schema({
   description: {
     type: String,
@@ -15,6 +26,7 @@ const eventSchema = new mongoose.Schema({
     default: Date.now()
   },
   dayOfWeek: Number,
+  id: false,
 },
 {
   toJSON: { virtuals: true },
@@ -27,7 +39,7 @@ eventSchema.pre('save', function(next) {
 });
 
 eventSchema.pre(/^find/, function(next) {
-  this.select('-dayOfWeek');
+  this.select('-dateTime');
   next();
 });
 
