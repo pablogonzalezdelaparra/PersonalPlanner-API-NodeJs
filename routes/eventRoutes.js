@@ -8,9 +8,11 @@ router
   .get(eventController.getAllEvents)
   .post(eventController.createEvent)
 
+  /*
 router
   .route('/:param')
   .get(eventController.getEventByParam)
   .delete(eventController.deleteEventByParam);
+  */
 
 module.exports = router;
