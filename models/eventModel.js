@@ -25,7 +25,6 @@ const eventSchema = new mongoose.Schema({
     default: Date.now()
   },
   dayOfWeek: String,
-  id: false,
 },
 {
   toJSON: { virtuals: true },

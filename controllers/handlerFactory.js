@@ -1,7 +1,7 @@
 const catchAsync = require('./../utils/catchAsync');
 const AppError = require('./../utils/appError');
 const APIFeatures = require('./../utils/apiFeatures');
-const { isObjectIdOrHexString } = require('mongoose');
+const { isObjectIdOrHexString, default: mongoose } = require('mongoose');
 
 exports.deleteOne = Model =>
   catchAsync(async (req, res, next) => {
@@ -70,8 +70,7 @@ exports.getAll = Model =>
   catchAsync(async (req, res, next) => {
     // To allow for nested GET reviews on tour (hack)
     let filter = {};
-    if (req.query.id) filter = { id: req.query.id };
-    console.log(req.query)
+    if (req.query.id) filter = { _id: mongoose.Types.ObjectId(req.query.id) };
     if (req.query.weekday) filter = { dayOfWeek: req.query.weekday };
 
     const features = new APIFeatures(Model.find(filter), req.query)
