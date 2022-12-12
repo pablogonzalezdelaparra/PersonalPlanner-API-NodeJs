@@ -106,7 +106,7 @@ exports.getOneByParam = (Model) =>
       // If param is an ID
       query = Model.findById(req.params.param);
     } else {
-      var day = WeekDays[req.params.param];
+      var day = req.params.param;
       // If param is a weekday
       query = Model.find({ dayOfWeek: day })
 
@@ -131,7 +131,7 @@ exports.deleteOneByParam = (Model) =>
       // If param is an ID
       query = Model.findByIdAndDelete(req.params.param);
     } else {
-      var day = WeekDays[req.params.param];
+      var day = req.params.param;
       // If param is a weekday
       query = Model.deleteMany({ dayOfWeek: day })
 

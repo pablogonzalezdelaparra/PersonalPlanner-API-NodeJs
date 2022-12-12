@@ -1,15 +1,14 @@
 const mongoose = require('mongoose');
 // const validator = require('validator');
 
-
 const WeekDays = {
-  monday: 1,
-  tuesday: 2,
-  wednesday: 3,
-  thursday: 4,
-  friday: 5,
-  saturday: 6,
-  sunday: 0,
+  1: 'monday',
+  2: 'tuesday',
+  3: 'wednesday',
+  4: 'thursday',
+  5: 'friday',
+  6: 'saturday',
+  0: 'sunday',
 }
 
 const eventSchema = new mongoose.Schema({
@@ -25,7 +24,7 @@ const eventSchema = new mongoose.Schema({
     type: Date,
     default: Date.now()
   },
-  dayOfWeek: Number,
+  dayOfWeek: String,
   id: false,
 },
 {
@@ -34,7 +33,8 @@ const eventSchema = new mongoose.Schema({
 });
 
 eventSchema.pre('save', function(next) {
-  this.dayOfWeek = this.dateTime.getDay()
+  numDay = this.dateTime.getDay()
+  this.dayOfWeek = WeekDays[numDay]
   next();
 });
 
