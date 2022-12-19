@@ -5,12 +5,17 @@ const APIFeatures = require('./../utils/apiFeatures');
 exports.deleteOne = Model =>
   catchAsync(async (req, res, next) => {
 
+    let doc = null
     let filter = {};
-    if (req.query.id) filter = { _id: mongoose.Types.ObjectId(req.query.id) };
-    if (req.query.weekday) filter = { dayOfWeek: req.query.weekday };
+    if (req.query._id){
+      filter = { _id: req.query._id };
+      doc = await Model.deleteOne(filter);
+    } 
+    if (req.query.weekday){
+      filter = { dayOfWeek: req.query.weekday };
+      doc = await Model.deleteMany(filter);
+    } 
   
-    const doc = await Model.deleteMany(filter);
-
     if (!doc) {
       return next(new AppError('No document found with that ID', 404));
     }
