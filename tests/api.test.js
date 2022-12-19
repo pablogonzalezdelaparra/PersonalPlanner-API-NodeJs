@@ -66,7 +66,7 @@ beforeEach(async () => {
         birthDate: "2000-08-11T00:00:00.000Z",
         city: "Mexico City",
         country: "Mexico",
-        email: "alfredo5@gmail.com",
+        email: "alfredo6@gmail.com",
         password: "password123",
         confirmPassword: "password123",
       });
