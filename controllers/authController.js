@@ -1,14 +1,17 @@
+//Imports
 const jwt = require('jsonwebtoken');
 const User = require('./../models/userModel');
 const catchAsync = require('./../utils/catchAsync');
 const AppError = require('./../utils/appError');
 
+//JWT token
 const signToken = id => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
     expiresIn: process.env.JWT_EXPIRES_IN
   });
 };
 
+//Send token
 const createSendToken = (user, statusCode, res) => {
   const token = signToken(user._id);
   const cookieOptions = {
@@ -19,9 +22,10 @@ const createSendToken = (user, statusCode, res) => {
   };
   if (process.env.NODE_ENV === 'production') cookieOptions.secure = true;
 
+  //Don't send as cookie, send as header
   //res.cookie('jwt', token, cookieOptions);
-  res.header('jwt', token)
 
+  res.header('jwt', token)
 
   // Remove password from output
   user.password = undefined;
@@ -35,6 +39,7 @@ const createSendToken = (user, statusCode, res) => {
   });
 };
 
+//Signup
 exports.signup = catchAsync(async (req, res, next) => {
   const newUser = await User.create({
     firstName: req.body.firstName,
@@ -50,6 +55,7 @@ exports.signup = catchAsync(async (req, res, next) => {
   createSendToken(newUser, 201, res);
 });
 
+//Sign in
 exports.signin = catchAsync(async (req, res, next) => {
   const { email, password } = req.body;
 
