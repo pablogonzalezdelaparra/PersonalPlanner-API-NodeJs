@@ -1,7 +1,9 @@
+//Imports
 const bcrypt = require('bcryptjs');
 const mongoose = require('mongoose');
 const validator = require('validator');
 
+//Schema
 const userSchema = new mongoose.Schema({
   firstName: {
     type: String,
@@ -49,7 +51,7 @@ const userSchema = new mongoose.Schema({
   },
 });
 
-// PRE SAVE MIDDLEWARE
+//Pre-save middleware
 userSchema.pre('save', async function(next) {
   // Only run this function if password was actually modified
   if (!this.isModified('password')) return next();
@@ -62,6 +64,7 @@ userSchema.pre('save', async function(next) {
   next();
 });
 
+//Validate password
 userSchema.methods.correctPassword = async function(
   candidatePassword,
   userPassword
@@ -69,6 +72,8 @@ userSchema.methods.correctPassword = async function(
   return await bcrypt.compare(candidatePassword, userPassword);
 };
 
+//Model
 const User = mongoose.model('User', userSchema);
 
+//Exports
 module.exports = User;

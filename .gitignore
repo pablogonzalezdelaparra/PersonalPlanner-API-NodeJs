@@ -1,1 +1,3 @@
+//Ignore these folders
 node_modules
+coverage
