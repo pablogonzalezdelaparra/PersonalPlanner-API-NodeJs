@@ -7,23 +7,28 @@ const validator = require('validator');
 const userSchema = new mongoose.Schema({
   firstName: {
     type: String,
-    required: [true, 'Please tell us your first name!']
+    required: [true, 'Please tell us your first name!'],
+    validate: [validator.isAscii, 'Please provide a valid first name'],
   },
   lastName: {
     type: String,
-    required: [true, 'Please tell us your last name!']
+    required: [true, 'Please tell us your last name!'],
+    validate: [validator.isAscii, 'Please provide a valid last name'],
   },
   birthDate: {
     type: Date,
-    required: [true, 'Please tell us your birth date!']
+    required: [true, 'Please tell us your birth date!'],
+    validate: [validator.isDate, 'Please provide a valid date'],
   },
   city: {
     type: String,
-    required: [true, 'Please tell us your city!']
+    required: [true, 'Please tell us your city!'],
+    validate: [validator.isAscii, 'Please provide a valid city'],
   },
   country: {
     type: String,
-    required: [true, 'Please tell us your country!']
+    required: [true, 'Please tell us your country!'],
+    validate: [validator.isAscii, 'Please provide a valid country'],
   },
   email: {
     type: String,

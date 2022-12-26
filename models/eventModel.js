@@ -1,33 +1,27 @@
 //Imports
 const mongoose = require('mongoose');
-// const validator = require('validator');
-
-const WeekDays = {
-  1: 'monday',
-  2: 'tuesday',
-  3: 'wednesday',
-  4: 'thursday',
-  5: 'friday',
-  6: 'saturday',
-  0: 'sunday',
-}
+const validator = require('validator');
 
 const eventSchema = new mongoose.Schema({
   description: {
     type: String,
-    required: [true, 'Please tell us the description!']
+    required: [true, 'Please tell us the description!'],
+    validate: [validator.isAscii, 'Please provide a valid description'],
   },
   dateTime: {
     type: Date,
-    required: [true, 'Please tell us the date time!']
+    required: [true, 'Please tell us the date time!'],
+    validate: [validator.isDate, 'Please provide a valid date'],
   },
   createdAt: {
     type: Date,
     default: Date.now(),
+    validate: [validator.isDate, 'Please provide a valid date'],
   },
   dayOfWeek: {
     type: String,
-    required: [true, 'Please tell us the weekday!']
+    required: [true, 'Please tell us the weekday!'],
+    validate: [validator.isAscii, 'Please provide a valid day of the week'],
   }
 },
 {
@@ -35,18 +29,19 @@ const eventSchema = new mongoose.Schema({
   toObject: { virtuals: true }
 });
 
+//Pre-save middleware
 eventSchema.pre('save', function(next) {
-  //numDay = this.dateTime.getDay()
-  //this.dayOfWeek = WeekDays[numDay]
   next();
 });
 
+//Query middleware
 eventSchema.pre(/^find/, function(next) {
   this.select('-dateTime');
   next();
 });
 
-
+//Model
 const Event = mongoose.model('Event', eventSchema);
 
+//Exports
 module.exports = Event;
