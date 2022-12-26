@@ -57,9 +57,9 @@ describe("GET /api/v1/events?_id=63977e330ae59c9fff94932f", () => {
 describe("POST /api/v1/events", () => {
   it("should create an event", async () => {
     const res = await request(app).post("/api/v1/events").send({
-      description: "New event!",
+      description: "Test event!",
       dateTime: "2022-12-13T00:00:00.000Z",
-      dayOfWeek: "tuesday",
+      dayOfWeek: "monday",
     });
     expect(res.statusCode).toBe(201);
     expect(res.body.status).toBe('success')
@@ -70,12 +70,12 @@ describe("POST /api/v1/events", () => {
 describe("POST /api/v1/users/signup", () => {
   it("should sign up a new user", async () => {
     const res = await request(app).post("/api/v1/users/signup").send({
-      firstName: "Alfredo",
-      lastName: "González de la Parra",
+      firstName: "Leonel",
+      lastName: "Messi",
       birthDate: "2000-08-11T00:00:00.000Z",
-      city: "Mexico City",
-      country: "Mexico",
-      email: "alfredo6@gmail.com",
+      city: "Buenos Aires",
+      country: "Argentina",
+      email: "test@gmail.com",
       password: "password123",
       confirmPassword: "password123",
     });
@@ -88,7 +88,7 @@ describe("POST /api/v1/users/signup", () => {
 describe("POST /api/v1/users/signin", () => {
   it("should sign in a current user", async () => {
     const res = await request(app).post("/api/v1/users/signin").send({
-      email: "alfredo2@gmail.com",
+      email: "test@gmail.com",
       password: "password123",
     });
     expect(res.statusCode).toBe(200);
