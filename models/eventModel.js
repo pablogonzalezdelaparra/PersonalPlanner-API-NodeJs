@@ -22,11 +22,13 @@ const eventSchema = new mongoose.Schema({
     type: String,
     required: [true, 'Please tell us the weekday!'],
     validate: [validator.isAscii, 'Please provide a valid day of the week'],
-  }
+  },
+  id: false,
+  versionKey: false,
 },
 {
   toJSON: { virtuals: true },
-  toObject: { virtuals: true }
+  toObject: { virtuals: true },
 });
 
 //Pre-save middleware
@@ -37,6 +39,7 @@ eventSchema.pre('save', function(next) {
 //Query middleware
 eventSchema.pre(/^find/, function(next) {
   this.select('-dateTime');
+  this.select('-__v');
   next();
 });
 

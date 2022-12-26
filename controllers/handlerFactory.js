@@ -11,9 +11,9 @@ exports.deleteOne = Model =>
     let filter = {};
 
     //Filters
-    if (req.query._id){
-      filter = { _id: req.query._id };
-      doc = await Model.deleteOne(filter);
+    if (req.query.id){
+      console.log(req.query.id)
+      doc = await Model.findByIdAndDelete(req.query.id);
     }
     if (req.query.weekday){
       filter = { dayOfWeek: req.query.weekday };
@@ -54,14 +54,16 @@ exports.getAll = Model =>
     let filter = {};
 
     //Filters
-    if (req.query.id) filter = { _id: mongoose.Types.ObjectId(req.query.id) };
-    if (req.query.weekday) filter = { dayOfWeek: req.query.weekday };
-    const features = new APIFeatures(Model.find(filter), req.query)
-      .filter()
-      .sort()
-      .limitFields()
-      .paginate();
-    const doc = await features.query;
+    if (req.query.id){
+      doc = await Model.findById(req.query.id);
+    }
+    else if (req.query.weekday){
+      filter = { dayOfWeek: req.query.weekday };
+      doc = await Model.find(filter);
+    }
+    else{
+      doc = await Model.find();
+    }
 
     //Response
     res.status(200).json({
