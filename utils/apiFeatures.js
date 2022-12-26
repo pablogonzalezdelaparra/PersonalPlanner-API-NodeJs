@@ -1,9 +1,11 @@
+//API Features
 class APIFeatures {
   constructor(query, queryString) {
     this.query = query;
     this.queryString = queryString;
   }
 
+  //Filter
   filter() {
     const queryObj = { ...this.queryString };
     const excludedFields = ['page', 'sort', 'limit', 'fields'];
@@ -18,6 +20,7 @@ class APIFeatures {
     return this;
   }
 
+  //Sorting
   sort() {
     if (this.queryString.sort) {
       const sortBy = this.queryString.sort.split(',').join(' ');
@@ -29,6 +32,7 @@ class APIFeatures {
     return this;
   }
 
+  //Limit fields
   limitFields() {
     if (this.queryString.fields) {
       const fields = this.queryString.fields.split(',').join(' ');
@@ -40,6 +44,7 @@ class APIFeatures {
     return this;
   }
 
+  //Paginate
   paginate() {
     const page = this.queryString.page * 1 || 1;
     const limit = this.queryString.limit * 1 || 100;
@@ -50,4 +55,6 @@ class APIFeatures {
     return this;
   }
 }
+
+//Exports
 module.exports = APIFeatures;
