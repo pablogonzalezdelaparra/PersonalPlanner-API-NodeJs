@@ -10,7 +10,7 @@ const router = express.Router();
 router
   .route('/')
   .get(userController.getAllUsers)
-  .delete(userController.deleteUser);
+  .delete(authController.protect, userController.deleteUser);
 
 router.post('/signUp', authController.signup);
 router.post('/signIn', authController.signin);
