@@ -43,24 +43,17 @@ app.use(xss());
 app.use(express.static(`${__dirname}/public`));
 
 //Test middleware
-app.use((req, res, next) => {
+app.use((req, _res, next) => {
   req.requestTime = new Date().toISOString();
   next();
 });
 
 //Routes
-app.use('/', (req, res, next) => {
-  res.status(200).json({
-    status: 'success',
-    message: 'Welcome to the API. Access one of the many valid routes.'
-  });
-});
-
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/events', eventRouter);
 
 //Default route
-app.all('*', (req, res, next) => {
+app.all('*', (req, _res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server!
   Please try a valid route`, 404));
 });
