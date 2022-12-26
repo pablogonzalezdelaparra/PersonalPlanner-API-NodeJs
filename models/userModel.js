@@ -77,6 +77,12 @@ userSchema.methods.correctPassword = async function(
   return await bcrypt.compare(candidatePassword, userPassword);
 };
 
+//Query middleware
+userSchema.pre(/^find/, function(next) {
+  this.select('-__v');
+  next();
+});
+
 //Model
 const User = mongoose.model('User', userSchema);
 
