@@ -28,6 +28,10 @@ const handleValidationErrorDB = err => {
 const handleJWTError = () =>
   new AppError('Invalid token. Please log in again!', 401);
 
+//Login error
+const handleNotLogin = () =>
+new AppError('You are not logged in! Please log in to get access.', 401)
+
 //JWT error
 const handleJWTExpiredError = () =>
   new AppError('Your token has expired! Please log in again.', 401);
@@ -74,6 +78,8 @@ module.exports = (err, _req, res, _next) => {
   } else if (process.env.NODE_ENV === 'production') {
     let error = { ...err };
 
+    //Error messages
+    if (error.statusCode === 401) error = handleNotLogin(error);
     if (error.name === 'CastError') error = handleCastErrorDB(error);
     if (error.code === 11000) error = handleDuplicateFieldsDB(error);
     if (error.name === 'ValidationError')

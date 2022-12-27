@@ -12,7 +12,6 @@ exports.deleteOne = Model =>
 
     //Filters
     if (req.query.id){
-      console.log(req.query.id)
       doc = await Model.findByIdAndDelete(req.query.id);
     }
     if (req.query.weekday){
