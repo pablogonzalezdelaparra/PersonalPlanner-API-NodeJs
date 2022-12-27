@@ -68,9 +68,9 @@ describe(`GET /api/v1/events?_id=`, () => {
 describe("POST /api/v1/events", () => {
   it("should create an event", async () => {
     const res = await request(app).post("/api/v1/events").send({
-      description: "Test event!",
-      dateTime: "2022-12-13T00:00:00.000Z",
-      dayOfWeek: "monday",
+      description: "Test event.",
+      dateTime: "2022-12-31T00:00:00.000Z",
+      dayOfWeek: "sunday",
     });
     expect(res.statusCode).toBe(201);
     expect(res.body.status).toBe('success')
@@ -86,10 +86,10 @@ describe("POST /api/v1/users/signup", () => {
     const res = await request(app).post("/api/v1/users/signup").send({
       firstName: "Leonel",
       lastName: "Messi",
-      birthDate: "2000-08-11T00:00:00.000Z",
+      birthDate: "1987-06-24T00:00:00.000Z",
       city: "Buenos Aires",
       country: "Argentina",
-      email: "messi6@gmail.com",
+      email: "messi@gmail.com",
       password: "password123",
       confirmPassword: "password123",
     });
