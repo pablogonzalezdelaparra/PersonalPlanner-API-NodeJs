@@ -1,6 +1,6 @@
 # Final NodeJS Challenge (3° Challenge)
 
-## Repository description
+## Repository information
 **Author:** Pablo González de la Parra
 
 **Date:** 28/12/2022
@@ -9,15 +9,12 @@
 Thinking about a new client that appeared in the market, Compass UOL had the idea of creating a planner. This planner will help the client to organize his week and his tasks and at what times they happen.
 > **Note:** Improvements over the last delivery (2° Challenge).
 
-# ----------------------
-# How to run this API
-This API is hosted on render.com. In order to access it live, open the next link
+## How to run this API on hosted server
+This API is hosted on render.com. In order to access it live, open the next link:
 ```
-https://compass-final-project.onrender.com/api/v1/{route}
+https://compass-final-project.onrender.com/api/v1 + {route}
 ```
-> **Note:** Switch {route} to valid route (See below)
-# -----------------------
-
+> **Note:** Enter any valid route in the {route} section in order to test the API.
 
 ## How to run this API locally
 In order to run this repository in your local machine, follow these next steps:
@@ -25,8 +22,11 @@ In order to run this repository in your local machine, follow these next steps:
 1. Open the folder named *compass-final-project* in your IDE of choice.
 1. Write on the terminal `npm install` to download all packages.
 1. Write on the terminal `npm start` to run the server.
-1. While the server is running, enter in your favorite web browser the next URL: `http://localhost:3000/api/v1 + {route}`.
-1. Enter any valid route in the {route} section in order to test the API.
+1. While the server is running, enter in your favorite web browser the next URL: 
+```
+http://localhost:3000/api/v1 + {route}
+```
+6. Enter any valid route in the {route} section in order to test the API.
 > **Note:** The database used in this repository is stored in MongoDB Atlas (Cloud). It accepts any IP connection. All database manipulation is done through the API.
 
 ## How to do unit testing
@@ -37,6 +37,15 @@ In order to test this program, follow these next steps to run all the unit tests
 > **Note:** All the information created by the POST routes are deleted after each iteration of the unit tests. Tests may take some time to execute.
 
 ## Routes
+In order to test the routes in the API, follow the examples below. Consider these next important aspects:
+1. API doesn't allow accents due to input validation (ASCII validation)
+1. DELETE routes are protected with the jwt token. In order to access them, add the next authorization header to each request.
+
+| Header name   | Value          
+| ------------- |:-------------:|
+| authorization | Bearer {jwt token}
+3. The API has dummy data to test its functionality
+
 ### Base route
 * Run locally
 ```
@@ -44,7 +53,7 @@ http://localhost:3000/api/v1
 ```
 * Run on hosted server
 ```
-----------------------------
+https://compass-final-project.onrender.com/api/v1
 ```
 
 
@@ -53,7 +62,7 @@ http://localhost:3000/api/v1
 ```
 http://localhost:3000/api/v1/events
 ```
-* Example response
+* - Example response
 ```
 {
 	"status": "success",
@@ -75,11 +84,11 @@ http://localhost:3000/api/v1/events
 ```
 http://localhost:3000/api/v1/events?weekday=
 ```
-* Example request
+* - Example request
 ```
 http://localhost:3000/api/v1/events?weekday=monday
 ```
-* Example response
+* - Example response
 ```
 {
 	"status": "success",
@@ -102,11 +111,11 @@ http://localhost:3000/api/v1/events?weekday=monday
 ```
 http://localhost:3000/api/v1/events?id=
 ```
-* Example request
+* - Example request
 ```
 http://localhost:3000/api/v1/events?id=63ab695d5ad83cb8d9ff1527
 ```
-* Example response
+* - Example response
 ```
 {
 	"status": "success",
@@ -128,7 +137,7 @@ http://localhost:3000/api/v1/events?id=63ab695d5ad83cb8d9ff1527
 ```
 http://localhost:3000/api/v1/users
 ```
-* Example response
+* - Example response
 ```
 {
 	"status": "success",
@@ -153,11 +162,11 @@ http://localhost:3000/api/v1/users
 ```
 http://localhost:3000/api/v1/users?id=
 ```
-* Example request
+* - Example request
 ```
 http://localhost:3000/api/v1/users?id=639ffd185606390cc86158e1
 ```
-* Example response
+* - Example response
 ```
 {
 	"status": "success",
@@ -180,7 +189,7 @@ http://localhost:3000/api/v1/users?id=639ffd185606390cc86158e1
 ```
 http://localhost:3000/api/v1/users/signup
 ```
-* Example request
+* - Example request
 ```
 {
 	"firstName": "Angel",
@@ -193,7 +202,7 @@ http://localhost:3000/api/v1/users/signup
   "confirmPassword": "password123"
 }
 ```
-* Example response
+* - Example response
 ```
 {
 	"status": "success",
@@ -217,14 +226,14 @@ http://localhost:3000/api/v1/users/signup
 ```
 http://localhost:3000/api/v1/users/signin
 ```
-* Example request
+* - Example request
 ```
 {
 	"email": "messi5@gmail.com",
 	"password": "password123"
 }
 ```
-* Example response
+* - Example response
 ```
 {
 	"status": "success",
@@ -248,7 +257,7 @@ http://localhost:3000/api/v1/users/signin
 ```
 http://localhost:3000/api/v1/events
 ```
-* Example request
+* - Example request
 ```
 {
 	"description": "Flag Day",
@@ -256,7 +265,7 @@ http://localhost:3000/api/v1/events
 	"dayOfWeek": "thursday"
 }
 ```
-* Example response
+* - Example response
 ```
 {
 	"status": "success",
@@ -279,24 +288,37 @@ http://localhost:3000/api/v1/events
 ```
 http://localhost:3000/api/v1/events?weekday=
 ```
-* Example request
+* - Example request
 ```
 http://localhost:3000/api/v1/events?weekday=monday
+
+[header]
+authorization, Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYWI2Njk2YTdkNGRiYTM1YmQ2ZTE1NyIsImlhdCI6MTY3MjE3NzkyMywiZXhwIjoxNjc5OTUzOTIzfQ.yhKZXISudzOCbA4NepKa4w4MHm0p_OCM8zsRqi2kan0
 ```
 
 * Delete all events by ID
 ```
 http://localhost:3000/api/v1/events?id=
 ```
-* Example request
+* - Example request
 ```
 http://localhost:3000/api/v1/events?id=63ab695d5ad83cb8d9ff1527
+
+[header]
+authorization, Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYWI2Njk2YTdkNGRiYTM1YmQ2ZTE1NyIsImlhdCI6MTY3MjE3NzkyMywiZXhwIjoxNjc5OTUzOTIzfQ.yhKZXISudzOCbA4NepKa4w4MHm0p_OCM8zsRqi2kan0
 ```
 * Delete all users by ID
 ```
 http://localhost:3000/api/v1/users?id=
 ```
-* Example request
+* - Example request
 ```
 http://localhost:3000/api/v1/users?id=63ab6696a7d4dba35bd6e157
+
+[header]
+authorization, Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYWI2Njk2YTdkNGRiYTM1YmQ2ZTE1NyIsImlhdCI6MTY3MjE3NzkyMywiZXhwIjoxNjc5OTUzOTIzfQ.yhKZXISudzOCbA4NepKa4w4MHm0p_OCM8zsRqi2kan0
 ```
+> **Note:** The `jwt` token can be retrieved by signing in as an existing user.
+
+## Comments
+If there are any problems accesing or modifiying the API or any of its components in order to test it, please reach out to me and I will respond as soon as possible. Thank you!
