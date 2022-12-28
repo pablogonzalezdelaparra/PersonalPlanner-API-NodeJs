@@ -1,126 +1,302 @@
-# Final Challenge (NodeJS)
-## Repository description (Documentation)
-* Author: Pablo González de la Parra
-* Date: 18/12/2022
+# Final NodeJS Challenge (3° Challenge)
 
-### Description of this repository
-* This planner will help the client to organize his week and his tasks and at what times they happen. 
-> **Note:** Improvements over the last delivery
+## Repository description
+**Author:** Pablo González de la Parra
 
-# Run globally
+**Date:** 28/12/2022
+
+## Description of this repository
+Thinking about a new client that appeared in the market, Compass UOL had the idea of creating a planner. This planner will help the client to organize his week and his tasks and at what times they happen.
+> **Note:** Improvements over the last delivery (2° Challenge).
+
+# ----------------------
+# How to run this API
 This API is hosted on render.com. In order to access it live, open the next link
 ```
 https://compass-final-project.onrender.com/api/v1/{route}
 ```
 > **Note:** Switch {route} to valid route (See below)
+# -----------------------
 
 
-# Run locally
-> **Note:** The database used in this repository is stored in MongoDB Atlas (Cloud). It accepts any IP connection.
+## How to run this API locally
+In order to run this repository in your local machine, follow these next steps:
+1. Download the repository locally into your machine (as a ZIP file or using Github Desktop).
+1. Open the folder named *compass-final-project* in your IDE of choice.
+1. Write on the terminal `npm install` to download all packages.
+1. Write on the terminal `npm start` to run the server.
+1. While the server is running, enter in your favorite web browser the next URL: `http://localhost:3000/api/v1 + {route}`.
+1. Enter any valid route in the {route} section in order to test the API.
+> **Note:** The database used in this repository is stored in MongoDB Atlas (Cloud). It accepts any IP connection. All database manipulation is done through the API.
 
-In order to run the repository locally, follow these next steps:
-1. Download the repository locally into your machine
-1. Open the folder named *compass-week8-project*
-1. Write on the terminal `npm install`
-1. Write on the terminal `npm start`
-1. Enter in your favorite web browser `http://localhost:3000/api/v1 + {route}`
-1. Enter any {route} in order to test the API
+## How to do unit testing
+In order to test this program, follow these next steps to run all the unit tests:
+1. Check that the server isn't currently running.
+1. Write on the terminal `npm install` (if you hadn't done it before).
+1. Run the command `npm test`.
+> **Note:** All the information created by the POST routes are deleted after each iteration of the unit tests. Tests may take some time to execute.
 
-# Unit testing
-In order to test this program, follow these next steps to access unit testing:
-1. Write on the terminal `npm install`
-1. After downloading the project locally, run the command `npm run test` (check that server isn't currently running)
-> **Note:** If POST tests fail after a few tries, change email in order to continue acceptable running tests. The program doesn't allow same email twice.
-
-# Routes
-## Base route
+## Routes
+### Base route
+* Run locally
 ```
 http://localhost:3000/api/v1
 ```
+* Run on hosted server
+```
+----------------------------
+```
 
-## Events
-```
-/events
-```
-* GET Get all events
-* POST Create event
 
-```
-/events?weekday={dayOfTheWeek}
-```
-* GET Get events by weekday
-* DELETE Delete events from weekday
-
-```
-/events?_id={id}
-```
-* GET Get event by id
-* DELETE Delete event by id
-> Note: Use ```_id``` in query
-
-## Users
-```
-/users
-```
-* GET Get all users
-```
-/users?_id={id}
-```
-* GET Get users by id
-* DELETE Delete event by id
-```
-/users/signUp
-```
-* POST User signUp
-
-```
-/users/signIn
-```
-* POST User signIn
-# Example (Queries)
-## Get events from thursday
-```
-http://localhost:3000/api/v1/events?weekday=thursday
-```
-## Get event from id
-```
-http://localhost:3000/api/v1/events?_id=6378030befac8b0188914436
-```
-## Create event
+### GET routes
+* Get all events
 ```
 http://localhost:3000/api/v1/events
 ```
-> {\
-	"description": "New event 4!",\
-	"dateTime": "2022-12-19T00:00:00.000Z",\
-	"dayOfWeek": "friday"\
+* Example response
+```
+{
+	"status": "success",
+	"results": 1,
+	"data": {
+		"data": [
+			{
+				"_id": "63ab695d5ad83cb8d9ff1527",
+				"description": "Independence Day",
+				"createdAt": "2022-12-27T21:46:42.675Z",
+				"dayOfWeek": "monday"
+			},
+		]
+	}
 }
+```
 
-## Sign Up (User)
-**Note:** For Sign In purposes, all users passwords are `password123`
+* Get all events by weekday
+```
+http://localhost:3000/api/v1/events?weekday=
+```
+* Example request
+```
+http://localhost:3000/api/v1/events?weekday=monday
+```
+* Example response
+```
+{
+	"status": "success",
+	"results": 1,
+	"data": {
+		"data": [
+			{
+				"_id": "63ab695d5ad83cb8d9ff1527",
+				"description": "Independence Day",
+				"createdAt": "2022-12-27T21:46:42.675Z",
+				"dayOfWeek": "monday"
+			},
+		]
+	}
+}
+```
+> **Note:** Weekdays are: monday, tuesday, wednesday, thursday, friday, saturday, sunday.
 
+* Get all events by ID
+```
+http://localhost:3000/api/v1/events?id=
+```
+* Example request
+```
+http://localhost:3000/api/v1/events?id=63ab695d5ad83cb8d9ff1527
+```
+* Example response
+```
+{
+	"status": "success",
+	"results": 1,
+	"data": {
+		"data": [
+			{
+				"_id": "63ab695d5ad83cb8d9ff1527",
+				"description": "Independence Day",
+				"createdAt": "2022-12-27T21:46:42.675Z",
+				"dayOfWeek": "monday"
+			},
+		]
+	}
+}
+```
+
+* Get all users
+```
+http://localhost:3000/api/v1/users
+```
+* Example response
+```
+{
+	"status": "success",
+	"results": 1,
+	"data": {
+		"data": [
+			{
+				"_id": "63ab6bb45ad83cb8d9ff1547",
+				"firstName": "Pablo",
+				"lastName": "Gonzalez de la Parra",
+				"birthDate": "2000-08-11T00:00:00.000Z",
+				"city": "Mexico City",
+				"country": "Mexico",
+				"email": "pablo@gmail.com"
+			}
+		]
+	}
+}
+```
+
+* Get all users by ID
+```
+http://localhost:3000/api/v1/users?id=
+```
+* Example request
+```
+http://localhost:3000/api/v1/users?id=639ffd185606390cc86158e1
+```
+* Example response
+```
+{
+	"status": "success",
+	"data": {
+		"data": {
+			"_id": "639ffd185606390cc86158e1",
+			"firstName": "Alfredo",
+			"lastName": "González de la Parra",
+			"birthDate": "2000-08-11T00:00:00.000Z",
+			"city": "Mexico City",
+			"country": "Mexico",
+			"email": "alfredo@gmail.com"
+		}
+	}
+}
+```
+
+### POST routes
+* User signup
 ```
 http://localhost:3000/api/v1/users/signup
 ```
-> {\
-	"firstName": "Alfredo",\
-	"lastName": "González de la Parra",\
-	"birthDate": "2000-08-11T00:00:00.000Z",\
-	"city": "Mexico City",\
-	"country": "Mexico",\
-	"email": "alfredo@gmail.com",\
-	"password": "password123",\
-  "confirmPassword": "password123"\
+* Example request
+```
+{
+	"firstName": "Angel",
+	"lastName": "Romero Silva",
+	"birthDate": "2002-05-07T00:00:00.000Z",
+	"city": "Caracas",
+	"country": "Venezuela",
+	"email": "angel@gmail.com",
+	"password": "password123",
+  "confirmPassword": "password123"
 }
+```
+* Example response
+```
+{
+	"status": "success",
+	"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYWI2YzVjNWFkODNjYjhkOWZmMTU0YiIsImlhdCI6MTY3MjE3ODc4MCwiZXhwIjoxNjc5OTU0NzgwfQ.voFO45Iegrk-rjEnthovQzFZ7Nd4-Q2zYmsX93zXW2g",
+	"data": {
+		"user": {
+			"firstName": "Angel",
+			"lastName": "Romero Silva",
+			"birthDate": "2002-05-07T00:00:00.000Z",
+			"city": "Caracas",
+			"country": "Venezuela",
+			"email": "angel@gmail.com",
+			"_id": "63ab6c5c5ad83cb8d9ff154b",
+			"__v": 0
+		}
+	}
+}
+```
 
-
-## Sign In (User)
-**Note:** For Sign In purposes, all users passwords are `password123`
-
+* User signin
 ```
 http://localhost:3000/api/v1/users/signin
 ```
-> {\
-	"email": "pablo@gmail.com",\
-	"password": "password123"\
+* Example request
+```
+{
+	"email": "messi5@gmail.com",
+	"password": "password123"
 }
+```
+* Example response
+```
+{
+	"status": "success",
+	"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYWI2Njk2YTdkNGRiYTM1YmQ2ZTE1NyIsImlhdCI6MTY3MjE3NzkyMywiZXhwIjoxNjc5OTUzOTIzfQ.yhKZXISudzOCbA4NepKa4w4MHm0p_OCM8zsRqi2kan0",
+	"data": {
+		"user": {
+			"_id": "63ab6696a7d4dba35bd6e157",
+			"firstName": "Leonel",
+			"lastName": "Messi",
+			"birthDate": "2000-08-11T00:00:00.000Z",
+			"city": "Buenos Aires",
+			"country": "Argentina",
+			"email": "messi5@gmail.com"
+		}
+	}
+}
+```
+> **Note:** For development purposes, all users passwords are `password123`
+
+* Create event
+```
+http://localhost:3000/api/v1/events
+```
+* Example request
+```
+{
+	"description": "Flag Day",
+	"dateTime": "2022-02-24T00:00:00.000Z",
+	"dayOfWeek": "thursday"
+}
+```
+* Example response
+```
+{
+	"status": "success",
+	"data": {
+		"data": {
+			"description": "Flag Day",
+			"dateTime": "2022-02-24T00:00:00.000Z",
+			"createdAt": "2022-12-27T21:46:42.675Z",
+			"dayOfWeek": "thursday",
+			"_id": "63ab6b795ad83cb8d9ff1541",
+			"__v": 0
+		}
+	}
+}
+```
+
+
+### DELETE routes
+* Delete all events by weekday
+```
+http://localhost:3000/api/v1/events?weekday=
+```
+* Example request
+```
+http://localhost:3000/api/v1/events?weekday=monday
+```
+
+* Delete all events by ID
+```
+http://localhost:3000/api/v1/events?id=
+```
+* Example request
+```
+http://localhost:3000/api/v1/events?id=63ab695d5ad83cb8d9ff1527
+```
+* Delete all users by ID
+```
+http://localhost:3000/api/v1/users?id=
+```
+* Example request
+```
+http://localhost:3000/api/v1/users?id=63ab6696a7d4dba35bd6e157
+```
