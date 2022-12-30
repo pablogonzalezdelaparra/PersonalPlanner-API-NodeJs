@@ -3,7 +3,7 @@
 ## Repository information
 **Author:** Pablo González de la Parra
 
-**Date:** 28/12/2022
+**Date:** 30/12/2022
 
 ## Description of this repository
 Thinking about a new client that appeared in the market, Compass UOL had the idea of creating a planner. This planner will help the client to organize his week and his tasks and at what times they happen.
@@ -14,7 +14,7 @@ This API is hosted on render.com. In order to access it live, open the next link
 ```
 https://compass-final-project.onrender.com/api/v1 + {route}
 ```
-> **Note:** Enter any valid route in the {route} section in order to test the API.
+> **Note:** Enter any valid route in the {route} section in order to test the API. Check below. It may take some time to load the first time you access it.
 
 ## How to run this API locally
 In order to run this repository in your local machine, follow these next steps:
@@ -34,18 +34,23 @@ In order to test this program, follow these next steps to run all the unit tests
 1. Check that the server isn't currently running.
 1. Write on the terminal `npm install` (if you hadn't done it before).
 1. Run the command `npm test`.
-> **Note:** All the information created by the POST routes are deleted after each iteration of the unit tests. Tests may take some time to execute.
+> **Note:** Tests may take some time to execute. All the information created by the POST routes are deleted after each iteration of the unit tests. 
 
 ## Routes
 In order to test the routes in the API, follow the examples below. Consider these next important aspects:
-1. API doesn't allow accents due to input validation (ASCII validation)
+1. API doesn't allow accents due to input validation (ASCII validation).
 1. DELETE routes are protected with the jwt token. In order to access them, add the next authorization header to each request.
 
 | Header name   | Value          
 | ------------- |:-------------:|
 | authorization | Bearer {jwt token}
-3. The API has dummy data to test its functionality
 
+The `authorization` header's value consists of 3 elements.
+1. The keyword `Bearer`.
+2. A whitespace.
+3. The `jwt` token (gotten from sign in or sign up route).
+3. The API has dummy data to test its functionality.
+> **Note:** For safety reasons, the token is sent on headers, not on cookies. 
 ### Base route
 * Run locally
 ```
@@ -105,7 +110,7 @@ http://localhost:3000/api/v1/events?weekday=monday
 	}
 }
 ```
-> **Note:** Weekdays are: monday, tuesday, wednesday, thursday, friday, saturday, sunday.
+> **Note:** Weekdays are: monday, tuesday, wednesday, thursday, friday, saturday, and sunday.
 
 * Get all events by ID
 ```
@@ -251,7 +256,7 @@ http://localhost:3000/api/v1/users/signin
 	}
 }
 ```
-> **Note:** For development purposes, all users passwords are `password123`
+> **Note:** For development purposes (and to use the sign in route on existing users), all users passwords are `password123`
 
 * Create event
 ```
@@ -321,4 +326,4 @@ authorization, Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYWI2Njk2Y
 > **Note:** The `jwt` token can be retrieved by signing in as an existing user.
 
 ## Comments
-If there are any problems accesing or modifying the API or any of its components in order to test it, please reach out to me and I will respond as soon as possible. Thank you!
+If there are any problems accessing or modifying the API or any of its components in order to test it, please reach out to me and I will respond as soon as possible. Thank you!
