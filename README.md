@@ -321,4 +321,4 @@ authorization, Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYWI2Njk2Y
 > **Note:** The `jwt` token can be retrieved by signing in as an existing user.
 
 ## Comments
-If there are any problems accesing or modifiying the API or any of its components in order to test it, please reach out to me and I will respond as soon as possible. Thank you!
+If there are any problems accesing or modifying the API or any of its components in order to test it, please reach out to me and I will respond as soon as possible. Thank you!
